@@ -1,0 +1,41 @@
+<!-- All options will be set from webpack html plugin -->
+<!doctype html>
+<html lang="en">
+<head>
+  <title><%=htmlWebpackPlugin.options.title%></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+
+  <link rel="manifest" href="/appManifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Devarsh">
+  <meta name="apple-mobile-web-app-title" content="Devarsh">
+
+  <meta name="msapplication-TileColor" content="#F5F5F5">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#F5F5F5">
+  <meta name="theme-color" content="#F5F5F5">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" media="all">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" media="all">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+</head>
+<body>
+  <% if (htmlWebpackPlugin.options.appMountId) { %>
+    <div id="<%= htmlWebpackPlugin.options.appMountId %>"></div>
+  <% } %>
+
+  <% if (htmlWebpackPlugin.options.devtools) { %>
+    <script>__REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__</script>
+  <% } %>
+
+  <% if(htmlWebpackPlugin.options.inline) { %>
+  <script><%=htmlWebpackPlugin.options.inline%></script>
+  <% } %>
+  <% if(htmlWebpackPlugin.options.inline) { %>
+  <script><%=htmlWebpackPlugin.options.ga%></script>
+  <% } %>
+</body>
+</html>
