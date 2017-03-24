@@ -1,23 +1,30 @@
 /*Webpack require*/
+require('dotenv').config()
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 
 /*Env variables*/
-const isProd = process.argv.includes('--release');
+const isProdEnv = process.env.production;
+const isProd = isProdEnv == 'true' ? true : false
+console.log(`===============BUILD FOR PRODUCTION ${isProd==true ? 'YES' : 'NO'}===============`)
 const allConfig = {
+  host: process.env.WEBPACK_HOST,
+  port: process.env.WEBPACK_PORT,
+  serviceWorkerVersion: process.env.SERVICEWORKER_VERSION
+}
+/*const allConfig = {
   host: 'localhost',
   port: '8081',
-  serviceWorkerVersion: '1'
-}
-let config = {}
-
-
+  serviceWorkerVersion: 1
+}*/
 /*Paths*/
 const basePath = path.resolve(__dirname,'../');
 const srcPath = path.resolve(basePath,'./src');
 const distPath = path.resolve(basePath,'./dist');
 
+/*config holder*/
+let config = {}
 
 
 /*Plugins for webpack*/
@@ -215,7 +222,7 @@ const prodConfig = {
 /* Development config */
 const devConfig = {
   entry : [
-    /*'react-hot-loader/patch',*/
+    'react-hot-loader/patch',
     `webpack-dev-server/client?http://${allConfig.host}:${allConfig.port}`,
     'webpack/hot/only-dev-server',
     './index.js',
@@ -225,7 +232,7 @@ const devConfig = {
     publicPath: "/",
     filename:'[name].js',
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval',
   module: {
     rules : getLoaders(),
   }

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "export NODE_ENV=development && webpack-dev-server --config webpack/webpack2.config.js",
     "build:prod": "export NODE_ENV=production && npm run clean && webpack --config webpack/webpack2.config.js",
-    "clean": "rm -rf dist/*.*"
+    "clean": "rm -rf dinst/*.*"
   },
   "repository": {
     "type": "git",
@@ -47,6 +47,7 @@
     "classnames": "^2.2.5",
     "compression-webpack-plugin": "^0.3.2",
     "css-loader": "^0.26.2",
+    "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^2.0.0",
     "fetch-mock": "^5.9.4",
