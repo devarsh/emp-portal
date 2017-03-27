@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Layout, NavDrawer, Sidebar, Panel } from 'react-toolbox/lib/layout';
 import { AppBar } from 'react-toolbox/lib/app_bar';
-import { List, ListItem } from 'react-toolbox/lib/list';
-import Employee from 'components/employee/employee.js'
+import Employee from 'components/employee'
+import LeftNav from 'components/leftNav'
+import {
+  Route
+} from 'react-router-dom'
 
 class LayoutExample extends Component {
   state = {
@@ -26,12 +29,7 @@ class LayoutExample extends Component {
           permanentAt="md"
           pinned={this.state.sideNavPinned}
         >
-          <List selectable ripple>
-            <ListItem caption='My Profile'/>
-            <ListItem caption='Company Policy'/>
-            <ListItem caption='Leave Request'/>
-            <ListItem caption='Downloads'/>
-          </List>
+          <LeftNav/>
         </NavDrawer>
         <AppBar
           fixed
@@ -40,7 +38,10 @@ class LayoutExample extends Component {
           title="Acute Employee Portal"
         />
         <Panel bodyScroll={this.state.bodyScrolled}>
-        <Employee/>
+          <Route path="/myProfile" component={Employee}/>
+          <Route path="/companyPolicy" component={()=> <div>Company policy</div>}/>
+          <Route path="/leaveRequest" component={()=> <div>Leave Request</div>}/>
+          <Route path="/downloads" component={()=> <div>Download</div>}/>
         </Panel>
       </Layout>
     );

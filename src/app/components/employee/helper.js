@@ -34,7 +34,7 @@ export const RenderDatePicker = ({ label, input : { value, onChange, onBlur, onF
   <DatePicker
     sundayFirstDayOfWeek
     label={label}
-    value={value}
+    value={new Date(value)}
     error={ touched && error ? error : undefined }
     onChange={onChange}
     onBlur={onBlur}

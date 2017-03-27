@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import {EMPLOYEE} from 'constants'
 import { reducer as formReducer } from 'redux-form'
+import { routerReducer } from 'react-router-redux'
 
 const employee = ( state={
                 isFetching: false,
@@ -31,4 +32,4 @@ const employee = ( state={
   }
 }
 
-export const Reducers = combineReducers({employee, form: formReducer})
+export const Reducers = combineReducers({employee, form: formReducer, router: routerReducer })

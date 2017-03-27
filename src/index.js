@@ -6,32 +6,37 @@ import { AppContainer } from 'react-hot-loader'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux'
-import {createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { ConnectedRouter, routerMiddleware as _routerMiddleware } from 'react-router-redux'
 
 import {Reducers} from 'reducers'
 
-import Demo from 'components/employee'
+import createHistory from 'history/createBrowserHistory'
+
+import Demo from 'components/layout'
 
 const dest =  document.getElementById('container')
 
 
 const logger = createLogger()
+const history = createHistory()
+const routerMiddleware = _routerMiddleware(history)
+
 let initailState = undefined
 let store
 let renderApp
 
-if (!__DEV__) {
-  store = ( window.devToolsExtension ?
-  window.devToolsExtension()(createStore) :
-  createStore)(Reducers, initailState, applyMiddleware(thunk,logger))
+if (__DEV__) {
+  const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  store = createStore(
+    Reducers,
+    initailState,
+    composeEnhancer(applyMiddleware(thunk,logger,routerMiddleware)))
 } else {
   store = createStore(
     Reducers,
     initailState,
-    compose(
-      applyMiddleware(thunk ,logger),
-      window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
+    applyMiddleware(thunk ,logger, routerMiddleware)
   )
 }
 
@@ -39,36 +44,17 @@ const AppRender = Component => {
   render(
     <AppContainer>
       <Provider store={store}>
-        <Demo/>
+        <ConnectedRouter history={history}>
+          <Component/>
+        </ConnectedRouter>
       </Provider>
     </AppContainer>,
     dest
   )
 }
 
-AppRender(Demo)
-
 if (module.hot) {
-  module.hot.accept('components/employee', () => { AppRender(Demo) })
+  module.hot.accept('components/layout', () => { AppRender(Demo) })
 }
 
-
-/*
-if(!!process.env.NODE_ENV && process.env.NODE_ENV != 'production') {
-
-  const renderApp1 = renderApp
-  const renderError = (error) => {
-    const RedBox = require('redbox-react')
-    render(<RedBox error={error} className="redbox"/>, dest)
-  }
-  console.log(renderApp1, renderError)
-  renderApp = () => {
-    try {
-      renderApp1()
-    } catch(error) {
-      renderError(error)
-    }
-  }
-}
-*/
-
+AppRender(Demo)

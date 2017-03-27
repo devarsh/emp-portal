@@ -37,7 +37,7 @@ let PersonalInfo = () => {
           <Field name="nickName" type="text" label="NickName" component={RenderTextField} />
         </div>
         <div className={classNames(flexGrid['col'],flexGrid['col-span-3'])}>
-          <Field name="birthDate" type="text" label="BirthDate" component={RenderDatePicker} />
+          <Field name="birthDate" type="text" label="BirthDate" component={RenderDatePicker} parse={(value,name) => new Date(value).toDateString()} />
         </div>
         <div className={classNames(flexGrid['col'],flexGrid['col-span-3'])}>
           <Field name="gender" type="text" label="Gender" source={Genders} component={RenderDropDown} />
