@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, NavDrawer, Sidebar, Panel } from 'react-toolbox/lib/layout';
+import { Layout, NavDrawer, Panel } from 'react-toolbox/lib/layout';
 import { AppBar } from 'react-toolbox/lib/app_bar';
 import Employee from 'components/employee'
 import LeftNav from 'components/leftNav'
@@ -29,7 +29,7 @@ class LayoutExample extends Component {
           permanentAt="md"
           pinned={this.state.sideNavPinned}
         >
-          <LeftNav/>
+         <LeftNav/>
         </NavDrawer>
         <AppBar
           fixed
@@ -38,10 +38,12 @@ class LayoutExample extends Component {
           title="Acute Employee Portal"
         />
         <Panel bodyScroll={this.state.bodyScrolled}>
+
           <Route path="/myProfile" component={Employee}/>
           <Route path="/companyPolicy" component={()=> <div>Company policy</div>}/>
           <Route path="/leaveRequest" component={()=> <div>Leave Request</div>}/>
           <Route path="/downloads" component={()=> <div>Download</div>}/>
+
         </Panel>
       </Layout>
     );

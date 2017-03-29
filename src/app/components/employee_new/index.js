@@ -10,7 +10,7 @@ class Employee extends Component {
     dispatch(load('123'))
   }
   render() {
-    const { isFetching, isInvalid, err  } = this.props
+    const { isFetching, isInvalid, err,data  } = this.props
     let RenderedElement
     if (isFetching) {
       RenderedElement = (<div> Loading... </div>)
@@ -19,7 +19,7 @@ class Employee extends Component {
       RenderedElement = (<div>{ err.toString() }</div>)
     }
     else {
-      RenderedElement = (<PersonalInfo/>)
+      RenderedElement = (<PersonalInfo data={data}/>)
     }
     return (
       <div>
@@ -30,18 +30,8 @@ class Employee extends Component {
 }
 
 
-Employee = reduxForm({
-  form: 'employee',
-  enableReinitialize: true,
-})(Employee)
+const mapStateToProps = ({employee}) => employee
 
-const mapStateToProps = ({form, employee}) => {
-  return {
-    ...form,
-    ...employee,
-    initialValues : employee.data
-  }
-}
 
 const mapDispatchToProps = (dispatch) => {
   return {

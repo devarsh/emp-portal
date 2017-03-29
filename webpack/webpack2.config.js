@@ -187,6 +187,13 @@ function getLoaders() {
         sourceMap: false,
       }, conf),
     }),
+    sassResources: conf => ({
+      loader: 'sass-resources-loader',
+      options: Object.assign({},{
+        sassResources: './config/sass-resources.scss',
+      },conf),
+    })
+
   }
 
   loaders.push({
@@ -204,7 +211,7 @@ function getLoaders() {
     test: /\.scss$/,
     exclude: /(node_modules)/,
     loader: ExtractTextPlugin.extract({
-      loader: [cssloaders.css({ importLoaders: 2 }), cssloaders.postcss(), cssloaders.sass()],
+      loader: [cssloaders.css({ importLoaders: 2 }), cssloaders.postcss(), cssloaders.sass(),cssloaders.sassResources()],
     }),
   })
   return loaders;
@@ -238,7 +245,7 @@ const commonConfig = {
 /* Production config */
 const prodConfig = {
   entry : {
-    index:['./index.js'],
+    index:['./index.js',`bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(basePath,'/.bootstraprc')}!bootstrap-loader/no-op.js`],
     vendor: ['react','react-dom'],
   },
   output : {
@@ -255,6 +262,7 @@ const prodConfig = {
 /* Development config */
 const devConfig = {
   entry : [
+    `bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(basePath,'/.bootstraprc')}!bootstrap-loader/no-op.js`,
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://${allConfig.host}:${allConfig.port}`,
     'webpack/hot/only-dev-server',

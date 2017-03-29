@@ -3,7 +3,7 @@ import { EMPLOYEE } from 'constants'
 var fetchMock = require('fetch-mock')
 
 if(__DEV__) {
-  const delay = new Promise((res, rej) => setTimeout(res, 3000))
+  const delay = new Promise((res, rej) => setTimeout(res, 5000))
   const dob = new Date(1990, 0, 30) //year, month, date i.e month starts from zero
   fetchMock.mock(/(http:\/\/localhost:8081\/employee)[/.-\w\d]*/,
   delay.then(() =>({
