@@ -16,7 +16,9 @@ const allConfig = {
   serviceWorkerVersion: process.env.SERVICEWORKER_VERSION,
   analyzerHost: process.env.WEBPACK_ANALYZER_HOST,
   analyzerPort: process.env.WEBPACK_ANALYZER_PORT,
-  shouldEnableAnalyzer: shouldEnableAnalyzer
+  shouldEnableAnalyzer: shouldEnableAnalyzer,
+  reactDomNode: process.env.REACT_DOM,
+  appTitle: process.env.APP_TITLE,
 }
 
 /*Paths*/
@@ -59,8 +61,8 @@ function getPlugins() {
     template: './index.html',
     inject: true,
     devtools: false,
-    title:'Emp Portal',
-    appMountId:'container',
+    title: allConfig.appTitle,
+    appMountId: allConfig.reactDomNode,
     minify: {
       removeComments: true,
       collapseWhitespace: false,
