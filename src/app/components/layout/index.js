@@ -38,12 +38,10 @@ class LayoutExample extends Component {
           title="Acute Employee Portal"
         />
         <Panel bodyScroll={this.state.bodyScrolled}>
-
-          <Route path="/myProfile" component={Employee}/>
+          <Route path="/myProfile" component={() => <div>Employee</div>}/>
           <Route path="/companyPolicy" component={()=> <div>Company policy</div>}/>
           <Route path="/leaveRequest" component={()=> <div>Leave Request</div>}/>
           <Route path="/downloads" component={()=> <div>Download</div>}/>
-
         </Panel>
       </Layout>
     );

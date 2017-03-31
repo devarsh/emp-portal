@@ -13,7 +13,7 @@ import {Reducers} from 'reducers'
 
 import createHistory from 'history/createBrowserHistory'
 
-import Demo from 'components/employee_new'
+import Demo from 'components/layout'
 
 const dest =  document.getElementById('container')
 
@@ -31,7 +31,10 @@ if (__DEV__) {
   store = createStore(
     Reducers,
     initailState,
-    composeEnhancer(applyMiddleware(thunk,logger,routerMiddleware)))
+    composeEnhancer(
+      applyMiddleware(thunk,logger,routerMiddleware)
+    )
+  )
 } else {
   store = createStore(
     Reducers,
@@ -54,7 +57,7 @@ const AppRender = Component => {
 }
 
 if (module.hot) {
-  module.hot.accept('components/employee_new', () => { AppRender(Demo) })
+  module.hot.accept('components/layout', () => { AppRender(Demo) })
 }
 
 AppRender(Demo)

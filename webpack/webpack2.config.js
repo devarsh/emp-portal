@@ -1,3 +1,5 @@
+/*Make sure .env file exists in the path from where you're calling npm run build*/
+
 /*Webpack require*/
 require('dotenv').config()
 const path = require('path');
@@ -19,6 +21,7 @@ const allConfig = {
   shouldEnableAnalyzer: shouldEnableAnalyzer,
   reactDomNode: process.env.REACT_DOM,
   appTitle: process.env.APP_TITLE,
+  bootstrapLoaderConf: process.env.BOOTSTRAP_LOADER_FILE
 }
 
 /*Paths*/
@@ -168,6 +171,12 @@ function getLoaders() {
   let loaders=[];
   /*loaders config for css webpack*/
   const cssloaders = {
+    style: conf => ({
+      loader: 'style-loader',
+      options: Object.assign({}, {
+
+      }, conf)
+    }),
     css: conf => ({
       loader: 'css-loader',
       options: Object.assign({}, {
@@ -195,27 +204,46 @@ function getLoaders() {
         sassResources: './config/sass-resources.scss',
       },conf),
     })
-
   }
 
+  //General Loaders
   loaders.push({
-    test: /\.js$|\.jsx$/,
-    use: [{ loader: 'babel-loader' }],
-    exclude: /node_modules/
+      test: /\.js$|\.jsx$/,
+      use: [{ loader: 'babel-loader' }],
+      exclude: /node_modules/
   })
   loaders.push({
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
-      loader: [cssloaders.css({ importLoaders: 1 }), cssloaders.postcss()],
-    }),
-  })
+    test: /\.(woff|woff2|svg)$/,
+    use: [{ loader: 'url-loader', options: { limit: 10000 } }],
+  }),
   loaders.push({
-    test: /\.scss$/,
-    exclude: /(node_modules)/,
-    loader: ExtractTextPlugin.extract({
-      loader: [cssloaders.css({ importLoaders: 2 }), cssloaders.postcss(), cssloaders.sass(),cssloaders.sassResources()],
-    }),
+    test: /\.(ttf|eot)$/,
+    use: [{ loader: 'file-loader' }]
   })
+  if(isProd) {
+    loaders.push({
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract({
+        loader: [cssloaders.css({ importLoaders: 1 }), cssloaders.postcss()],
+      }),
+    })
+    loaders.push({
+      test: /\.scss$/,
+      exclude: /(node_modules)/,
+      loader: ExtractTextPlugin.extract({
+        loader: [cssloaders.css({ importLoaders: 2 }), cssloaders.postcss(), cssloaders.sass()],
+      }),
+    })
+  } else {
+    loaders.push({
+      test: /\.css$/,
+      use: [ cssloaders.style(), cssloaders.css({ importLoaders: 1 }), cssloaders.postcss() ],
+    })
+    loaders.push({
+      test: /\.scss$/,
+      use: [ cssloaders.style(), cssloaders.css({ importLoaders: 2 }), cssloaders.postcss(), cssloaders.sass()],
+    })
+  }
   return loaders;
 }
 
@@ -241,13 +269,16 @@ const commonConfig = {
     enforceExtension: false,
     extensions: [".js", ".jsx"],
   },
+  module: {
+    rules : getLoaders(),
+  },
   plugins: getPlugins(),
 }
 
 /* Production config */
 const prodConfig = {
   entry : {
-    index:['./index.js',`bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(basePath,'/.bootstraprc')}!bootstrap-loader/no-op.js`],
+    index:['./index.js',`bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(basePath,'./',allConfig.bootstrapLoaderConf)}!bootstrap-loader/no-op.js`],
     vendor: ['react','react-dom'],
   },
   output : {
@@ -256,15 +287,12 @@ const prodConfig = {
     filename:'[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
   },
-  module: {
-    rules : getLoaders(),
-  }
 }
 
 /* Development config */
 const devConfig = {
   entry : [
-    `bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(basePath,'/.bootstraprc')}!bootstrap-loader/no-op.js`,
+    `bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(basePath,'./',allConfig.bootstrapLoaderConf)}!bootstrap-loader/no-op.js`,
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://${allConfig.host}:${allConfig.port}`,
     'webpack/hot/only-dev-server',
@@ -276,9 +304,6 @@ const devConfig = {
     filename:'[name].js',
   },
   devtool: 'eval',
-  module: {
-    rules : getLoaders(),
-  }
 }
 
 if(!isProd) {
