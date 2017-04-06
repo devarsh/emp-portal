@@ -32,14 +32,14 @@ if (__DEV__) {
     Reducers,
     initailState,
     composeEnhancer(
-      applyMiddleware(thunk,logger,routerMiddleware)
+      applyMiddleware(thunk, logger, routerMiddleware)
     )
   )
 } else {
   store = createStore(
     Reducers,
     initailState,
-    applyMiddleware(thunk ,logger, routerMiddleware)
+    applyMiddleware(thunk, logger, routerMiddleware)
   )
 }
 

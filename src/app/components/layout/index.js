@@ -3,9 +3,8 @@ import { Layout, NavDrawer, Panel } from 'react-toolbox/lib/layout';
 import { AppBar } from 'react-toolbox/lib/app_bar';
 import Employee from 'components/employee'
 import LeftNav from 'components/leftNav'
-import {
-  Route
-} from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 class LayoutExample extends Component {
   state = {
@@ -16,7 +15,9 @@ class LayoutExample extends Component {
   };
 
   handleToggle = param => {
+    console.log(this.state)
     this.setState({ [param]: !this.state[param] });
+    console.log(this.state)
   }
   render () {
     const { sideNavActive } = this.state;
@@ -38,10 +39,19 @@ class LayoutExample extends Component {
           title="Acute Employee Portal"
         />
         <Panel bodyScroll={this.state.bodyScrolled}>
-          <Route path="/myProfile" component={() => <div>Employee</div>}/>
-          <Route path="/companyPolicy" component={()=> <div>Company policy</div>}/>
-          <Route path="/leaveRequest" component={()=> <div>Leave Request</div>}/>
-          <Route path="/downloads" component={()=> <div>Download</div>}/>
+          <div style={{display:'flex'}}>
+            <div style={{flex:1, margin:'20px'}} className="container">
+                <Row>
+                  <Col md={12}>
+                    <Route path="/myProfile" component={Employee}/>
+                    <Route path="/companyPolicy" component={()=> <div>Company policy</div>}/>
+                    <Route path="/leaveRequest" component={()=> <div>Leave Request</div>}/>
+                    <Route path="/downloads" component={()=> <div>Download</div>}/>
+                  </Col>
+                </Row>
+
+            </div>
+          </div>
         </Panel>
       </Layout>
     );

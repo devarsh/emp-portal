@@ -44,7 +44,7 @@ bootstrapCustomizations: ./src/styles/bootstrap3/customizations.scss
 # Import your custom styles here
 # Usually this endpoint-file contains list of @imports of your application styles
 #
-# appStyles: ./src/styles/app.scss
+appStyles: ./src/styles/app.scss
 
 ### Bootstrap styles
 styles:

@@ -1,69 +1,60 @@
-import React, { Component } from 'react'
-import flexGrid from 'components/Util/flexGrid.css'
-import { Field, FormSection } from 'redux-form'
-import { RenderTextField, RenderDropDown, RenderDatePicker } from './helper.js'
-import { Address } from './address.js'
-import classNames from 'classnames'
-
-let PersonalInfo = () => {
-
-  const Genders = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female'},
-    { value: 'TransGender', label: 'TransGender' },
-  ]
-  const BloodGroups = [
-    { value: 'O+', label: 'O+' },
-    { value: 'O–', label: 'O–' },
-    { value: 'A+', label: 'A+' },
-    { value: 'A–', label: 'A-' },
-    { value: 'B+', label: 'B+' },
-    { value: 'B–', label: 'B–' },
-    { value: 'AB+', label: 'AB+' },
-    { value: 'AB-', label: 'AB-' },
-  ]
-  const MaratialStatus = [
-    { value: 'Married', label: 'Married' },
-    { value: 'UnMarried', label: 'UnMarried' }
-  ]
-
+import React from 'react'
+import { Row, Col, Panel, Well } from 'react-bootstrap'
+import Address from './address.js'
+import EmergencyContact from './emergencyContact.js'
+import {dateToDateString} from 'utils'
+const Personal = (props) => {
+  const {
+    name,shortName,gender,birthDate,bloodGroup,maritialStatus,email,contact,
+    address, emergencyContact
+  } = props.data
   return (
     <div>
-      <section className={flexGrid.row} >
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-6'])}>
-          <Field name="fullName" type="text" label="Full Name" component={RenderTextField} />
-        </div>
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-6'])}>
-          <Field name="nickName" type="text" label="NickName" component={RenderTextField} />
-        </div>
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-3'])}>
-          <Field name="birthDate" type="text" label="BirthDate" component={RenderDatePicker} parse={(value,name) => new Date(value).toDateString()} />
-        </div>
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-3'])}>
-          <Field name="gender" type="text" label="Gender" source={Genders} component={RenderDropDown} />
-        </div>
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-3'])}>
-          <Field name="bloodGroup" type="text" label="Blood Group" source={BloodGroups} component={RenderDropDown} />
-        </div>
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-3'])}>
-          <Field name="maritialStatus" type="text" label="Maritial Status" source={MaratialStatus} component={RenderDropDown} />
-        </div>
-      </section>
-      <section className={flexGrid.row} >
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-6'])}>
-          <FormSection name="address.permanent">
-            <Address title="Permanent Address"/>
-          </FormSection>
-        </div>
-        <div className={classNames(flexGrid['col'],flexGrid['col-span-6'])}>
-          <FormSection name="address.current">
-            <Address title="Current Address"/>
-          </FormSection>
-        </div>
-      </section>
+      <Well bsSize="small">
+        <Row>
+          <Col md={3}><label>Name</label></Col>
+          <Col md={6}>{name}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>ShortName</label></Col>
+          <Col md={6}>{shortName}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>Gender</label></Col>
+          <Col md={6}>{gender}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>BirthDate</label></Col>
+          <Col md={6}>{dateToDateString(birthDate)}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>BloodGroup</label></Col>
+          <Col md={6}>{bloodGroup}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>Maritial Status</label></Col>
+          <Col md={6}>{maritialStatus}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>Email</label></Col>
+          <Col md={6}>{email}</Col>
+        </Row>
+        <Row>
+          <Col md={3}><label>Contact</label></Col>
+          <Col md={6}>{contact}</Col>
+        </Row>
+      </Well>
+      <Well bsSize="small">
+        <Address data={address} />
+      </Well>
+      <Well bsSize="small">
+        <EmergencyContact data={emergencyContact} />
+      </Well>
     </div>
   )
 }
 
-export default PersonalInfo
+export default Personal
+
+
 

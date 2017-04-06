@@ -1,46 +1,38 @@
 import React, { Component } from 'react';
-import PersonalInfo from './personal'
 import { connect } from 'react-redux'
-import { reduxForm, FormSection } from 'redux-form'
-import { fetchEmployee } from 'actions'
+import employeeAction from 'actions'
+
+const fetchEmployee = employeeAction.fetchEmployee
+
+import MyProfile from './myProfile'
 
 class Employee extends Component {
+
   componentWillMount() {
     const { dispatch, load } = this.props
     dispatch(load('123'))
   }
   render() {
-    const { isFetching, isInvalid, err  } = this.props
     let RenderedElement
+    const { isFetching, isInvalid, err, data  } = this.props
+
     if (isFetching) {
       RenderedElement = (<div> Loading... </div>)
     }
     else if (!isFetching && isInvalid && err ) {
-      RenderedElement = (<div>{ err.toString() }</div>)
+      RenderedElement = (<div> Error...</div>)
     }
-    else {
-      RenderedElement = (<PersonalInfo/>)
+    else if(!isFetching && !isInvalid && data) {
+      RenderedElement = (<MyProfile data={data} />)
+    } else {
+      RenderedElement = null
     }
-    return (
-      <div>
-        {RenderedElement}
-      </div>
-    );
+    return RenderedElement
   }
 }
 
-
-Employee = reduxForm({
-  form: 'employee',
-  enableReinitialize: true,
-})(Employee)
-
-const mapStateToProps = ({form, employee}) => {
-  return {
-    ...form,
-    ...employee,
-    initialValues : employee.data
-  }
+const mapStateToProps = ({employee}) => {
+  return { ...employee }
 }
 
 const mapDispatchToProps = (dispatch) => {

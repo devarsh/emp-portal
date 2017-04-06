@@ -2,16 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { Nav, NavItem } from 'react-bootstrap'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-
-
+import  SubNav  from 'utils/SubNav'
 
 class LeftNav extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { active: true }
+  state = {
+    active: true
   }
   handleSelect = (currSelect) => {
-    console.log(this.state)
     this.setState({active: currSelect})
   }
 
@@ -49,6 +46,7 @@ class LeftNav extends Component {
 
   render() {
     const { dispatch } = this.props
+
     return (
       <Nav bsStyle="pills" activeKey={this.state.active} onSelect={this.handleSelect} stacked >
         <NavItem eventKey={1}  onClick={()=> dispatch(push('/myProfile'))}>My Profile</NavItem>
@@ -56,7 +54,7 @@ class LeftNav extends Component {
         <NavItem eventKey={3}  onClick={()=> dispatch(push('/leaveRequest'))}>Leave Request</NavItem>
         <NavItem eventKey={4}  onClick={()=> dispatch(push('/downloads'))}>Downloads</NavItem>
       </Nav>
-    );
+    )
   }
 }
 
