@@ -15,9 +15,7 @@ class LayoutExample extends Component {
   };
 
   handleToggle = param => {
-    console.log(this.state)
     this.setState({ [param]: !this.state[param] });
-    console.log(this.state)
   }
   render () {
     const { sideNavActive } = this.state;

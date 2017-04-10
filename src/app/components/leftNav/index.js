@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Nav, NavItem } from 'react-bootstrap'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import  SubNav  from 'utils/SubNav'
 
 class LeftNav extends Component {
   state = {

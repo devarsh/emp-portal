@@ -13,7 +13,7 @@ import {Reducers} from 'reducers'
 
 import createHistory from 'history/createBrowserHistory'
 
-import Demo from 'components/layout'
+import Demo from 'components/main.js'
 
 const dest =  document.getElementById('container')
 
@@ -57,7 +57,7 @@ const AppRender = Component => {
 }
 
 if (module.hot) {
-  module.hot.accept('components/layout', () => { AppRender(Demo) })
+  module.hot.accept('components/main.js', () => { AppRender(Demo) })
 }
 
 AppRender(Demo)

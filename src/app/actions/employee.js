@@ -1,22 +1,23 @@
-import { EMPLOYEE } from 'constants'
+import { EMPLOYEE } from 'constants/redux'
+const { REQUEST, RECIEVE, INVALIDATE } = EMPLOYEE
 
 export const requestEmployee = (employee) => {
   return {
-    type: EMPLOYEE.REQUEST,
+    type: REQUEST,
     employee
   }
 }
 
 export const recieveEmployee = (data) => {
   return {
-    type: EMPLOYEE.RECIEVE,
+    type: RECIEVE,
     data
   }
 }
 
 export const invalidateEmployee = (err) => {
   return {
-    type: EMPLOYEE.INVALIDATE,
+    type: INVALIDATE,
     err
   }
 }

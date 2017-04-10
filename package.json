@@ -8,7 +8,8 @@
     "build": "export NODE_ENV=development && webpack-dev-server --config webpack/webpack2.config.js",
     "build:prod": "export NODE_ENV=production && npm run clean && webpack --config webpack/webpack2.config.js",
     "build:stats": "export NODE_ENV=development && webpack --config webpack/webpack2.config.js --profile --json > stats.json",
-    "clean": "rm -rf dinst/*.*"
+    "clean": "rm -rf dist/*.*",
+    "babel": "babel src/app/utils --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/devarsh/emp-portal#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "bootstrap": "4.0.0-alpha.6",
     "bootstrap-sass": "^3.3.7",
     "connected-react-router": "^4.0.0",
