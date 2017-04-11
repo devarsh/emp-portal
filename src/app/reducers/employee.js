@@ -1,4 +1,5 @@
 import { EMPLOYEE } from 'constants/redux'
+
 const { REQUEST, RECIEVE, INVALIDATE } = EMPLOYEE
 
 const initialState = {
@@ -8,21 +9,21 @@ const initialState = {
   err: null
 }
 
-const employee = ( state = initialState, action )  => {
-  switch(action.type) {
-    case EMPLOYEE.REQUEST:
+const employee = (state = initialState, action) => {
+  switch (action.type) {
+    case REQUEST:
       return { ...state,
-        isFetching:true,
+        isFetching: true,
         initialState: false
       }
-    case EMPLOYEE.RECIEVE:
+    case RECIEVE:
       return { ...state,
-        isFetching:false,
+        isFetching: false,
         isInvalid: false,
         data: action.data,
         recievedAt: Date.now(),
         err: null }
-    case EMPLOYEE.INVALIDATE:
+    case INVALIDATE:
       return { ...state,
         isInvalid: true,
         isFetching: false,

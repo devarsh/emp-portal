@@ -5,6 +5,7 @@ const basePath = path.resolve(__dirname,'../')
 const shouldEnableAnalyzer = process.env.WEBPACK_ANALYZER_ENABLE == 'true' ? true : false
 const enableHotLoadingInDev = process.env.WEBPACK_ENABLE_HOT_LOADING_IN_DEV == 'true' ? true : false
 const isProd = process.env.production == 'true' ? true : false
+const enableEslint = process.env.ENABLE_ESLINT_IN_DEV == 'true' ? true : false
 const allConfig = {
   host: process.env.WEBPACK_HOST,
   port: process.env.WEBPACK_PORT,
@@ -20,6 +21,7 @@ const allConfig = {
   basePath: basePath,
   srcPath: path.resolve(basePath,'./src'),
   distPath: path.resolve(basePath,'./dist'),
+  enableEslint: enableEslint
 }
 
 module.exports = allConfig

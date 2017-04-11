@@ -1,9 +1,9 @@
-import server from './fakeServer.js'
+import server from './fakeServer'
 
 const fakeRequest = {
   post(endpoint, data, callback) {
-    setTimeout(()=> {
-      switch(endpoint) {
+    setTimeout(() => {
+      switch (endpoint) {
         case '/login':
           server.login(data.username, data.password, callback);
           break;
@@ -21,5 +21,3 @@ const fakeRequest = {
 }
 
 export default fakeRequest
-
-

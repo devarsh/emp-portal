@@ -1,6 +1,8 @@
-import React from 'react'
-import { Panel, Row, Col, Well } from 'react-bootstrap'
-import {dateToDateString} from 'utils'
+/* eslint-disable jsx-a11y/label-has-for */
+import React, { PropTypes as P } from 'react'
+import { Row, Col, Well } from 'react-bootstrap'
+import { dateToDateString } from 'utils'
+
 const Work = (props) => {
   const { employeeId, designation, department, dateOfJoin, email, contactNo } = props.data
   return (
@@ -31,6 +33,16 @@ const Work = (props) => {
       </Row>
     </Well>
   )
+}
+Work.propTypes = {
+  data: P.shape({
+    employeeId: P.string.isRequired,
+    designation: P.string.isRequired,
+    department: P.string.isRequired,
+    dateOfJoin: P.string.isRequired,
+    email: P.string.isRequired,
+    contactNo: P.string.isRequired
+  }).isRequired
 }
 
 export default Work

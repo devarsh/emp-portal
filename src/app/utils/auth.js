@@ -1,27 +1,28 @@
 import request from './fakeRequest';
 
-
+const noop = () => null
 const auth = {
   login(username, password, callback) {
-    if(!callback) {
-      callback = () => {}
+    let innerCallback = callback
+    if (!callback) {
+      innerCallback = noop
     }
-    if(this.loggedIn()) {
-      callback(true)
+    if (this.loggedIn()) {
+      innerCallback(true)
       return;
     }
-    request.post('/login', {username, password}, (response) => {
-      if(response.authenticated) {
+    request.post('/login', { username, password }, (response) => {
+      if (response.authenticated) {
         localStorage.token = response.token
-        callback(true)
+        innerCallback(true)
       } else {
-        callback(false, response.error)
+        innerCallback(false, response.error)
       }
     })
   },
   logout(callback) {
-    request.post('/logout',{}, () => {
-      if(callback) {
+    request.post('/logout', {}, () => {
+      if (callback) {
         callback(true)
       }
     });
@@ -30,14 +31,15 @@ const auth = {
     return !!localStorage.token;
   },
   register(username, password, callback) {
-    if(!callback) {
-      callback = () => {}
+    let innerCallback = callback
+    if (!callback) {
+      innerCallback = noop
     }
-    request.post('/register', { username, password}, (response) => {
-      if(response.register === true) {
-        this.login(username, password, callback)
+    request.post('/register', { username, password }, (response) => {
+      if (response.register === true) {
+        this.login(username, password, innerCallback)
       } else {
-        callback(false, response.error);
+        innerCallback(false, response.error);
       }
     })
   },

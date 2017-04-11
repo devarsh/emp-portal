@@ -1,5 +1,6 @@
 import { AUTH } from 'constants/redux'
 import auth from 'utils/auth'
+
 const { SET_AUTH, SENDING_REQUEST, SET_ERROR_MESSAGE } = AUTH
 
 

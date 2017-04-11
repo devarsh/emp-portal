@@ -9,5 +9,3 @@ export const AUTH = {
   SET_ERROR_MESSAGE: 'AUTH/SET_ERROR_MESSAGE',
   SET_AUTH: 'AUTH/SET_AUTH',
 }
-
-

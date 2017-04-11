@@ -1,22 +1,23 @@
-import React from 'react';
-import {Form, FormGroup, Col, Button, ControlLabel, FormControl, HelpBlock, Panel} from 'react-bootstrap'
+import React, { PropTypes as P } from 'react';
+import { Form, FormGroup, Col, Button, ControlLabel, FormControl, HelpBlock, Panel } from 'react-bootstrap'
 
 const AuthForm = (props) => {
   const { handleChange, handleSubmit, currentlySending, errorMsg, username, password } = props
-  let validationState=null
+  let validationState = null
   if (errorMsg != null) {
-    validationState="error"
+    validationState = 'error'
   }
   return (
-
     <div className="loginFlexContainer">
       <div className="loginFlex">
         <Panel header="Employee Portal - Login">
-          <Form horizontal onSubmit={(event) => {
+          <Form
+            horizontal
+            onSubmit={(event) => {
               event.preventDefault()
               handleSubmit()
-            }
-          }>
+            }}
+          >
             <FormGroup controlId="username" validationState={validationState}>
               <Col componentClass={ControlLabel} sm={2} >
                 Email
@@ -28,7 +29,7 @@ const AuthForm = (props) => {
                   placeholder="Email"
                   value={username}
                   name="username"
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
+                  onChange={e => handleChange(e.target.name, e.target.value)}
                 />
               </Col>
             </FormGroup>
@@ -43,7 +44,7 @@ const AuthForm = (props) => {
                   placeholder="Password"
                   value={password}
                   name="password"
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
+                  onChange={e => handleChange(e.target.name, e.target.value)}
                 />
               </Col>
             </FormGroup>
@@ -53,7 +54,7 @@ const AuthForm = (props) => {
             <FormGroup>
               <Col smOffset={2} sm={10}>
                 <Button type="submit" disabled={currentlySending}>
-                  {!currentlySending ? "Sign In" : "Signing In..."}
+                  {!currentlySending ? 'Sign In' : 'Signing In...'}
                 </Button>
               </Col>
             </FormGroup>
@@ -62,6 +63,14 @@ const AuthForm = (props) => {
       </div>
     </div>
   )
+}
+AuthForm.propTypes = {
+  handleChange: P.func.isRequired,
+  handleSubmit: P.func.isRequired,
+  currentlySending: P.bool.isRequired,
+  errorMsg: P.string,
+  username: P.string.isRequired,
+  password: P.string.isRequired,
 }
 
 export default AuthForm

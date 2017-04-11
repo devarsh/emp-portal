@@ -1,5 +1,7 @@
-import React from 'react'
-import { Panel, Row, Col, Well } from 'react-bootstrap'
+/* eslint-disable jsx-a11y/label-has-for */
+import React, { PropTypes as P } from 'react'
+import { Row, Col, Well } from 'react-bootstrap'
+
 const Docs = (props) => {
   const { panNo, adharCardNo, passportNo } = props.data
   return (
@@ -18,6 +20,13 @@ const Docs = (props) => {
       </Row>
     </Well>
   )
+}
+Docs.propTypes = {
+  data: P.shape({
+    panNo: P.string.isRequired,
+    adharCardNo: P.string.isRequired,
+    passportNo: P.string.isRequired
+  }).isRequired
 }
 
 export default Docs

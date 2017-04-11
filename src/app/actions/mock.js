@@ -1,16 +1,18 @@
-const delay = () => new Promise((res, rej) => setTimeout(res, 3000))
+/* eslint-disable import/no-extraneous-dependencies, no-undef */
+import fetchMock from 'fetch-mock'
 
-if(__DEV__) {
-  var fetchMock = require('fetch-mock')
-  const dob = new Date(1986, 6, 23) //year, month, date i.e month starts from zero
+const delay = () => new Promise(res => setTimeout(res, 3000))
+
+if (__DEV__) {
+  const dob = new Date(1986, 6, 23) // year, month, date i.e month starts from zero
   const doj = new Date(2008, 1, 15)
   fetchMock.mock(/(http:\/\/localhost:8081\/employee)[/.-\w\d]*/,
-  delay().then(() =>({
+  delay().then(() => ({
     personal: {
       name: 'Kim H. Cedillo',
       shortName: 'Kim',
       gender: 'Female',
-      birthDate : dob,
+      birthDate: dob,
       bloodGroup: 'B-',
       maritialStatus: 'UnMarried',
       email: 'hhkim7@yopmail.com',
@@ -52,7 +54,7 @@ if(__DEV__) {
     },
     finance: {
       bankName: 'ICICI',
-      bankAccountNo:'4OEB6G6J113A101881',
+      bankAccountNo: '4OEB6G6J113A101881',
       homeBranchName: 'Main',
       ifscCode: 'ICICI000034',
       pfNo: 'AHJ/DL3/354/3435535',

@@ -44,14 +44,15 @@ function getLoaders(allConfig) {
     presets: ["react","stage-2"],
     plugins: [],
   }
-  loaders.push({
+  const jsLoader = {
     test: /\.js$|\.jsx$/,
     use: [{
       loader: 'babel-loader',
       options: babelOptions
     }],
     exclude: /node_modules/
-  })
+  }
+  loaders.push(jsLoader)
   loaders.push({
     test: /\.(woff|woff2|svg)$/,
     use: [{ loader: 'url-loader', options: { limit: 10000 } }],
@@ -75,9 +76,20 @@ function getLoaders(allConfig) {
       }),
     })
   } else {
+
+    if (allConfig.enableEslint) {
+      jsLoader.use.push({
+        loader: 'eslint-loader',
+        options: {
+          /*formatter: require("eslint-friendly-formatter"),*/
+        }
+      })
+    }
+
     if(allConfig.enableHotLoadingInDev) {
       babelOptions.plugins.push('react-hot-loader/babel')
     }
+
     loaders.push({
       test: /\.css$/,
       use: [ cssloaders.style(), cssloaders.css({ importLoaders: 1 }), cssloaders.postcss() ],

@@ -1,3 +1,4 @@
-import './mock.js'
-import * as employee from './employee.js'
+import './mock'
+import * as employee from './employee'
+
 export default employee

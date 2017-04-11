@@ -1,5 +1,7 @@
-import React from 'react'
-import { Panel, Row, Col, Well } from 'react-bootstrap'
+/* eslint-disable jsx-a11y/label-has-for */
+import React, { PropTypes as P } from 'react'
+import { Row, Col, Well } from 'react-bootstrap'
+
 const Finance = (props) => {
   const { bankName, bankAccountNo, homeBranchName, ifscCode, pfNo, esiNo } = props.data
   return (
@@ -30,6 +32,16 @@ const Finance = (props) => {
       </Row>
     </Well>
   )
+}
+Finance.propTypes = {
+  data: P.shape({
+    bankName: P.string.isRequired,
+    bankAccountNo: P.string.isRequired,
+    homeBranchName: P.string.isRequired,
+    ifscCode: P.string.isRequired,
+    pfNo: P.string.isRequired,
+    esiNo: P.string.isRequired
+  }).isRequired
 }
 
 export default Finance

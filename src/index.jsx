@@ -1,30 +1,24 @@
-import {render} from 'react-dom'
+/* eslint-disable no-undef, no-underscore-dangle */
+import { render } from 'react-dom'
 import React from 'react'
-
 import { AppContainer } from 'react-hot-loader'
-
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { ConnectedRouter, routerMiddleware as _routerMiddleware } from 'react-router-redux'
-
-import {Reducers} from 'reducers'
-
+import Reducers from 'reducers'
 import createHistory from 'history/createBrowserHistory'
+import Demo from 'components/main'
 
-import Demo from 'components/main.js'
-
-const dest =  document.getElementById('container')
-
+const dest = document.getElementById('container')
 
 const logger = createLogger()
 const history = createHistory()
 const routerMiddleware = _routerMiddleware(history)
 
-let initailState = undefined
+const initailState = undefined
 let store
-let renderApp
 
 if (__DEV__) {
   const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -43,12 +37,12 @@ if (__DEV__) {
   )
 }
 
-const AppRender = Component => {
+const AppRender = (Component) => {
   render(
     <AppContainer>
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <Component/>
+          <Component />
         </ConnectedRouter>
       </Provider>
     </AppContainer>,
@@ -57,7 +51,7 @@ const AppRender = Component => {
 }
 
 if (module.hot) {
-  module.hot.accept('components/main.js', () => { AppRender(Demo) })
+  module.hot.accept('components/main', () => { AppRender(Demo) })
 }
 
 AppRender(Demo)

@@ -50,7 +50,7 @@ const commonConfig = {
 /* Production config */
 const prodConfig = {
   entry : {
-    index:['./index.js',`bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(allConfig.basePath,'./',allConfig.bootstrapLoaderConf)}!bootstrap-loader/no-op.js`],
+    index:['./index',`bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(allConfig.basePath,'./',allConfig.bootstrapLoaderConf)}!bootstrap-loader/no-op.js`],
     vendor: ['react','react-dom'],
   },
   output : {
@@ -66,7 +66,7 @@ const devConfig = {
   entry : [
     `webpack-dev-server/client?http://${allConfig.host}:${allConfig.port}`,
     `bootstrap-loader/lib/bootstrap.loader?configFilePath=${path.join(allConfig.basePath,'./',allConfig.bootstrapLoaderConf)}!bootstrap-loader/no-op.js`,
-    './index.js',
+    './index',
   ],
   output : {
     path : allConfig.distPath,
