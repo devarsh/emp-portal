@@ -1,7 +1,7 @@
 /*Make sure .env file exists in the path from where you're calling npm run build*/
 require('dotenv').config()
 const path = require('path');
-const basePath = path.resolve(__dirname,'../')
+const basePath = path.resolve(__dirname,'../../')
 const shouldEnableAnalyzer = process.env.WEBPACK_ANALYZER_ENABLE == 'true' ? true : false
 const enableHotLoadingInDev = process.env.WEBPACK_ENABLE_HOT_LOADING_IN_DEV == 'true' ? true : false
 const isProd = process.env.production == 'true' ? true : false

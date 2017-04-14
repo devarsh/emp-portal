@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "export NODE_ENV=development && webpack-dev-server --config webpack/webpack2.config.js",
-    "build:prod": "export NODE_ENV=production && npm run clean && webpack --config webpack/webpack2.config.js",
-    "build:stats": "export NODE_ENV=development && webpack --config webpack/webpack2.config.js --profile --json > stats.json",
+    "client:build": "export NODE_ENV=development && webpack-dev-server --config webpack/client/webpack2.config.js",
+    "client:build:prod": "export NODE_ENV=production && npm run clean && webpack --config webpack/client/webpack2.config.js",
+    "client:build:stats": "export NODE_ENV=development && webpack --config webpack/client/webpack2.config.js --profile --json > stats.json",
     "clean": "rm -rf dist/*.*",
-    "babel": "babel src/app/utils --out-dir dist"
+    "babel": "babel src/client/app/utils --out-dir dist/client"
   },
   "repository": {
     "type": "git",
