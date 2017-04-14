@@ -19,8 +19,8 @@ const allConfig = {
   enableHotLoadingInDev: enableHotLoadingInDev,
   isProd: isProd,
   basePath: basePath,
-  srcPath: path.resolve(basePath,'./src'),
-  distPath: path.resolve(basePath,'./dist'),
+  srcPath: path.resolve(basePath,'./src/client'),
+  distPath: path.resolve(basePath,'./dist/client'),
   enableEslint: enableEslint
 }
 

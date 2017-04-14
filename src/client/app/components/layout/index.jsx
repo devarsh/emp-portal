@@ -13,10 +13,13 @@ class LayoutExample extends Component {
     sideNavPinned: false,
     sideNavClipped: true,
   };
-  /* this function is causing some issues, needs investigation*/
-  /*handleToggle = (param) => {
+  /* this function is causing some issues, needs investigation
+
+  handleToggle = (param) => {
     this.setState({ [param]: !this.state[param] });
-  }*/
+  }
+
+  */
   handleToggle = () => null
   render() {
     const { sideNavActive } = this.state;
