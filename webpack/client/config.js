@@ -6,6 +6,7 @@ const shouldEnableAnalyzer = process.env.WEBPACK_ANALYZER_ENABLE == 'true' ? tru
 const enableHotLoadingInDev = process.env.WEBPACK_ENABLE_HOT_LOADING_IN_DEV == 'true' ? true : false
 const isProd = process.env.production == 'true' ? true : false
 const enableEslint = process.env.ENABLE_ESLINT_IN_DEV == 'true' ? true : false
+const enableWebpackProxy = process.env.WEBPACK_PROXY_ENABLE == 'true' ? true : false
 const allConfig = {
   host: process.env.WEBPACK_HOST,
   port: process.env.WEBPACK_PORT,
@@ -21,7 +22,10 @@ const allConfig = {
   basePath: basePath,
   srcPath: path.resolve(basePath,'./src/client'),
   distPath: path.resolve(basePath,'./dist/client'),
-  enableEslint: enableEslint
+  enableEslint: enableEslint,
+  enableWebpackProxy: enableWebpackProxy,
+  webpackProxyServer: process.env.WEBPACK_PROXY_SERVER,
+  webpackProxyPath: process.env.WEBPACK_PROXY_PATH
 }
 
 module.exports = allConfig

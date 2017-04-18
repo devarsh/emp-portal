@@ -13,9 +13,26 @@ const getPlugins = require('./plugins.js')
 /*config holder*/
 let config = {}
 
+/* Proxy config */
+let proxy
+if (allConfig.enableWebpackProxy) {
+  proxy = [
+    {
+      context: [],
+      target: allConfig.webpackProxyServer,
+      secure: false
+    }
+  ]
+  proxy[0].context.push(allConfig.webpackProxyPath)
+}
+
+
+
+
 /*Common webpack config between prod & Development*/
 
 const commonConfig = {
+  target: 'web',
   context: allConfig.srcPath,
   devServer: {
     hot: allConfig.enableHotLoadingInDev,
@@ -26,7 +43,8 @@ const commonConfig = {
     headers: {
       "X-Powered-By": "DEVA"
     },
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: proxy
   },
   resolve: {
     modules: [path.join(allConfig.basePath, 'node_modules')],
